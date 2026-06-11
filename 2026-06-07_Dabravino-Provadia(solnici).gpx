@@ -9,6 +9,64 @@
     <time>2026-06-11T18:21:34.317Z</time>
   </metadata>
   <trk>
+    <name>Част 1 - Дъбравино</name>
+    <trkseg>
+      <trkpt lat="43.0929466" lon="27.5138807"><ele>62.9</ele></trkpt>
+      <trkpt lat="43.0866584" lon="27.5219191"><ele>55.8</ele></trkpt>
+      <trkpt lat="43.0832557" lon="27.5278951"><ele>71.4</ele></trkpt>
+      <trkpt lat="43.0825431" lon="27.5280144"><ele>72.1</ele></trkpt>
+      <trkpt lat="43.0801498" lon="27.5265608"><ele>102.3</ele></trkpt>
+      <trkpt lat="43.0779761" lon="27.527409"><ele>104.1</ele></trkpt>
+      <trkpt lat="43.073648" lon="27.5274113"><ele>121.2</ele></trkpt>
+      <trkpt lat="43.0726775" lon="27.5245283"><ele>128.1</ele></trkpt>
+      <trkpt lat="43.0693936" lon="27.5255425"><ele>151</ele></trkpt>
+      <trkpt lat="43.0672772" lon="27.5379093"><ele>144.4</ele></trkpt>
+      <trkpt lat="43.0640317" lon="27.5541752"><ele>113.9</ele></trkpt>
+      <trkpt lat="43.0635154" lon="27.5551206"><ele>114.7</ele></trkpt>
+      <trkpt lat="43.0635439" lon="27.5566391"><ele>120.3</ele></trkpt>
+      <trkpt lat="43.0622341" lon="27.5558815"><ele>106.3</ele></trkpt>
+      <trkpt lat="43.060374" lon="27.5713783"><ele>93.2</ele></trkpt>
+      <trkpt lat="43.0580461" lon="27.5732844"><ele>106.8</ele></trkpt>
+      <trkpt lat="43.056854" lon="27.5753694"><ele>103.8</ele></trkpt>
+      <trkpt lat="43.0556308" lon="27.5807952"><ele>78.6</ele></trkpt>
+      <trkpt lat="43.0612543" lon="27.5799783"><ele>73.5</ele></trkpt>
+      <trkpt lat="43.0613803" lon="27.5899368"><ele>101.8</ele></trkpt>
+      <trkpt lat="43.0577621" lon="27.5909069"><ele>96</ele></trkpt>
+      <trkpt lat="43.0567191" lon="27.5926197"><ele>93.7</ele></trkpt>
+      <trkpt lat="43.056329" lon="27.5964656"><ele>91.5</ele></trkpt>
+      <trkpt lat="43.0583791" lon="27.5971304"><ele>99.7</ele></trkpt>
+      <trkpt lat="43.0588315" lon="27.5989827"><ele>101.3</ele></trkpt>
+      <trkpt lat="43.0598341" lon="27.5991087"><ele>107.1</ele></trkpt>
+      <trkpt lat="43.0600707" lon="27.6031005"><ele>63.0</ele></trkpt>
+    </trkseg>
+  </trk>
+  <trk>
+    <name>Част 2 - Провадия</name>
+    <trkseg>
+      <trkpt lat="43.0932719" lon="27.5134555"><ele>20.1</ele></trkpt>
+      <trkpt lat="43.0935972" lon="27.5130304"><ele>19.9</ele></trkpt>
+      <trkpt lat="43.0939225" lon="27.5126053"><ele>21.2</ele></trkpt>
+      <trkpt lat="43.0942478" lon="27.5121802"><ele>22.0</ele></trkpt>
+      <trkpt lat="43.0945731" lon="27.5117551"><ele>21.3</ele></trkpt>
+      <trkpt lat="43.0948984" lon="27.5113300"><ele>22.1</ele></trkpt>
+      <trkpt lat="43.0952238" lon="27.5109049"><ele>23.3</ele></trkpt>
+      <trkpt lat="43.0952827" lon="27.5108279"><ele>23.5</ele></trkpt>
+      <trkpt lat="43.0955561" lon="27.5103389"><ele>24.4</ele></trkpt>
+      <trkpt lat="43.0958294" lon="27.5098500"><ele>25.0</ele></trkpt>
+      <trkpt lat="43.0959117" lon="27.5097028"><ele>25.7</ele></trkpt>
+      <trkpt lat="43.0961682" lon="27.5091970"><ele>26.0</ele></trkpt>
+      <trkpt lat="43.0964246" lon="27.5086912"><ele>26.6</ele></trkpt>
+      <trkpt lat="43.0966811" lon="27.5081854"><ele>27.1</ele></<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="The Ride Atlas - therideatlas.com" schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata>
+    <name>2026-06-07_Дъбравино-Провадия - 18км</name>
+    <author>
+      <name>gpx.studio</name>
+      <link href="https://gpx.studio"/>
+    </author>
+    <time>2026-06-11T18:21:34.317Z</time>
+  </metadata>
+  <trk>
     <name>2026-06-07_Дъбравино-Провадия - 18км</name>
     <trkseg>
       <trkpt lat="43.0929466" lon="27.5138807"><ele>62.9</ele></trkpt>
