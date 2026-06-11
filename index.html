@@ -44,6 +44,339 @@
     .card.active { border-color: var(--moss-bright); background: rgba(185,222,117, 0.08); box-shadow: 0 0 15px rgba(185,222,117, 0.1); }
     .card h3 { margin:0; font-size:15px; letter-spacing: -0.01em; line-height: 1.4; }
     
+    /* Блок с данни вътре в картичката */
+    .card-stats {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(185,222,117, 0.15);
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--moss-bright);
+    }
+    .stats-item { display: flex; align-items: center; gap: 6px; }
+    
+    /* Контейнер за картата */
+    .map-shell { border-radius: 24px; overflow:hidden; position:relative; border:1px solid rgba(255,255,255,.1); }
+    #map { width:100%; height:100%; background: #f5f3f0; }
+
+    /* Дизайнерски HTML Маркери за Старт и Финал */
+    .custom-marker {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 3px solid #fff; box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    .marker-start { background: #42c27a; }
+    .marker-end { background: #ff3333; }
+
+    @media (max-width: 980px) {
+      #app { grid-template-columns:1fr; padding:0; }
+      .panel { display:none; }
+      .map-shell { border-radius:0; height:100dvh; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <aside class="panel">
+      <section class="brand">
+        <div class="brand-row">
+          <div class="logo">
+            <div class="logo-mark">🌲</div>
+            <div><h1 style="font-size:20px; margin:0; letter-spacing:-0.03em;">Trail Bulgaria</h1><p style="margin:4px 0 0; color:var(--muted); font-size:12px;">топографски трасета</p></div>
+          </div>
+          <span class="pill" id="countPill">0 пътеки</span>
+        </div>
+      </section>
+      <section class="list" id="trailList"></section>
+    </aside>
+
+    <main class="map-shell">
+      <div id="map"></div>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/maplibre-gl@4.1.2/dist/maplibre-gl.js"></script>
+
+  <script>
+    let currentMarkers = [];
+
+    // 1. Инициализиране на картата с OpenTopoMap
+    const map = new maplibregl.Map({
+      container: 'map',
+      center: [25.4858, 42.7339],
+      zoom: 6.5,
+      style: {
+        version: 8,
+        sources: {
+          'topo-tiles': {
+            type: 'raster',
+            tiles: ['https://a.tile.opentopomap.org/{z}/{x}/{y}.png'],
+            tileSize: 256,
+            attribution: 'Map data: &copy; OpenStreetMap, SRTM | Map style: &copy; OpenTopoMap'
+          }
+        },
+        layers: [
+          { id: 'topo', type: 'raster', source: 'topo-tiles', minzoom: 0, maxzoom: 17 }
+        ]
+      }
+    });
+
+    map.addControl(new maplibregl.NavigationControl(), 'top-right');
+    map.addControl(new maplibregl.ScaleControl({ unit: 'metric' }), 'bottom-left');
+
+    let trails = [
+      {
+        id: 1,
+        name: "📍 еко пътека кв. Галата - х. Ветеран- х. Черноморец",
+        gpx: "https://raw.githubusercontent.com/ikaraivanov01/gpx-tracksbg/main/2026-05-31_galata_chernomorec.gpx" 
+      },
+      {
+        id: 2,
+        name: "📍 еко пътека Ментешето - Аксаковска панорама",
+        gpx: "https://raw.githubusercontent.com/ikaraivanov01/gpx-tracksbg/main/2026-06-01_mentesheto.gpx" 
+      },
+      {
+        id: 3,
+        name: "📍 трейл маршрут с. Дъбравино - Провадия,солници",
+        gpx: "https://raw.githubusercontent.com/ikaraivanov01/gpx-tracksbg/main/2026-06-07_Dabravino-Provadia(solnici).gpx" 
+      },
+      {
+        id: 4,
+        name: "📍 класически маршрут изкачване кк Боровец - хижа Мусала",
+        gpx: "https://raw.githubusercontent.com/ikaraivanov01/gpx-tracksbg/main/kk.Borovec-h.Musala.gpx" 
+      },
+      {
+        id: 5,
+        name: "📍 класически маршрут изкачване хижа Мусала - връх Мусала",
+        gpx: "https://raw.githubusercontent.com/ikaraivanov01/gpx-tracksbg/main/h.Musala-vr.Musala.gpx" 
+      }
+    ];
+
+    function getDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371;
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon/2) * Math.sin(dLon/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      return R * c;
+    }
+
+    function clearCurrentRoute() {
+      currentMarkers.forEach(marker => marker.remove());
+      currentMarkers = [];
+      if (map.getLayer('route-glow')) map.removeLayer('route-glow');
+      if (map.getLayer('route-main')) map.removeLayer('route-main');
+      if (map.getSource('route')) map.removeSource('route');
+    }
+
+    function drawRoute(trailId, gpxUrl) {
+      fetch(gpxUrl)
+        .then(response => {
+          if (!response.ok) throw new Error("Грешка при връзката");
+          return response.text();
+        })
+        .then(gpxText => {
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(gpxText, "text/xml");
+          const trackPoints = xmlDoc.getElementsByTagName("trkpt");
+          
+          let coordinates = [];
+          let totalDistance = 0;
+
+          for (let i = 0; i < trackPoints.length; i++) {
+            let lat = parseFloat(trackPoints[i].getAttribute("lat"));
+            let lon = parseFloat(trackPoints[i].getAttribute("lon"));
+            if (!isNaN(lat) && !isNaN(lon)) {
+              coordinates.push([lon, lat]);
+              
+              if (i > 0) {
+                let prevLat = parseFloat(trackPoints[i-1].getAttribute("lat"));
+                let prevLon = parseFloat(trackPoints[i-1].getAttribute("lon"));
+                totalDistance += getDistance(prevLat, prevLon, lat, lon);
+              }
+            }
+          }
+
+          if (coordinates.length === 0) {
+            alert("Файлът не съдържа валидни GPS точки.");
+            return;
+          }
+
+          // КОРЕКЦИЯ 1: Ако маршрутът е Дъбравино - Провадия (id: 3), заковаваме разстоянието на 18 км
+          if (trailId === 3) {
+            totalDistance = 18.00;
+          }
+
+          // Изчисляване на базовото време спрямо разстоянието
+          let totalHours = totalDistance / 4.0;
+
+          // КОРЕКЦИЯ 2: Ако е маршрут №4 или №5 (Мусала), увеличаваме времето двойно
+          if (trailId === 4 || trailId === 5) {
+            totalHours = totalHours * 2;
+          }
+
+          const hours = Math.floor(totalHours);
+          const minutes = Math.round((totalHours - hours) * 60);
+          const timeText = hours > 0 ? `${hours} ч ${minutes} мин` : `${minutes} мин`;
+
+          updateCardStats(trailId, totalDistance, timeText);
+          clearCurrentRoute();
+
+          map.addSource('route', {
+            type: 'geojson',
+            data: {
+              type: 'Feature',
+              properties: {},
+              geometry: {
+                type: 'LineString',
+                coordinates: coordinates
+              }
+            }
+          });
+
+          map.addLayer({
+            id: 'route-glow',
+            type: 'line',
+            source: 'route',
+            layout: { 'line-join': 'round', 'line-cap': 'round' },
+            paint: {
+              'line-color': '#ffffff', 
+              'line-width': 8,
+              'line-opacity': 0.8
+            }
+          });
+
+          map.addLayer({
+            id: 'route-main',
+            type: 'line',
+            source: 'route',
+            layout: { 'line-join': 'round', 'line-cap': 'round' },
+            paint: {
+              'line-color': '#ff3333', 
+              'line-width': 4,
+              'line-opacity': 1
+            }
+          });
+
+          const startCoord = coordinates[0];
+          const endCoord = coordinates[coordinates.length - 1];
+
+          const startEl = document.createElement('div');
+          startEl.className = 'custom-marker marker-start';
+          const startMarker = new maplibregl.Marker({ element: startEl })
+            .setLngLat(startCoord)
+            .setPopup(new maplibregl.Popup({ offset: 10 }).setHTML('<h4>🏁 Старт на маршрута</h4>'))
+            .addTo(map);
+          currentMarkers.push(startMarker);
+
+          const endEl = document.createElement('div');
+          endEl.className = 'custom-marker marker-end';
+          const endMarker = new maplibregl.Marker({ element: endEl })
+            .setLngLat(endCoord)
+            .setPopup(new maplibregl.Popup({ offset: 10 }).setHTML('<h4>🏆 Финал на маршрута</h4>'))
+            .addTo(map);
+          currentMarkers.push(endMarker);
+
+          let bounds = coordinates.reduce((bounds, coord) => {
+            return bounds.extend(coord);
+          }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
+
+          map.fitBounds(bounds, { 
+            padding: 80,
+            linear: false,
+            duration: 1500 
+          });
+        })
+        .catch(error => {
+          console.error("Грешка:", error);
+          alert("Неуспешно зареждане на трасето.");
+        });
+    }
+
+    function updateCardStats(trailId, distance, timeText) {
+      document.querySelectorAll('.card-stats').forEach(el => el.remove());
+      
+      const activeCard = document.querySelector(`.card[data-id="${trailId}"]`);
+      if (activeCard) {
+        const statsHtml = `
+          <div class="card-stats">
+            <div class="stats-item">📏 <span>${distance.toFixed(2)} км</span></div>
+            <div class="stats-item">⏱ <span>~ ${timeText}</span></div>
+          </div>
+        `;
+        activeCard.insertAdjacentHTML('beforeend', statsHtml);
+      }
+    }
+
+    const trailList = document.getElementById('trailList');
+    function renderTrails() {
+      trailList.innerHTML = '';
+      trails.forEach(trail => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.setAttribute('data-id', trail.id);
+        card.innerHTML = `<h3>${trail.name}</h3><p style="font-size:11px; color:var(--muted); margin:6px 0 0;">Кликни за топографски преглед</p>`;
+        
+        card.addEventListener('click', () => {
+          document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+          card.classList.add('active');
+          drawRoute(trail.id, trail.gpx);
+        });
+        trailList.appendChild(card);
+      });
+      document.getElementById('countPill').innerText = `${trails.length} пътеки`;
+    }
+
+    renderTrails();
+  </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#102116" />
+  <title>Trail Bulgaria — Интерактивна Топографска Карта</title>
+  
+  <link href="https://unpkg.com/maplibre-gl@4.1.2/dist/maplibre-gl.css" rel="stylesheet" />
+  
+  <style>
+    :root {
+      --pine-950: #06130c;
+      --moss-bright: #b9de75;
+      --fern: #42c27a;
+      --snow: #f4f7ec;
+      --muted: rgba(244,247,236,.68);
+      --panel-w: 424px;
+    }
+    * { box-sizing: border-box; }
+    html, body { width:100%; height:100%; margin:0; overflow:hidden; }
+    body {
+      font-family: Inter, sans-serif; color: var(--snow);
+      background: #06130c;
+    }
+    #app { display:grid; grid-template-columns: var(--panel-w) 1fr; padding:16px; gap:14px; height:100dvh; }
+    
+    /* Ляво меню */
+    .panel { 
+      display:flex; flex-direction:column; overflow:hidden; border-radius: 24px; 
+      background: rgba(13,37,22,0.9); border:1px solid rgba(255,255,255,.1); 
+      backdrop-filter: blur(10px);
+    }
+    .brand { padding:22px 20px 14px; border-bottom:1px solid rgba(255,255,255,.1); }
+    .brand-row { display:flex; align-items:center; justify-content:space-between; }
+    .logo { display:flex; align-items:center; gap:12px; }
+    .logo-mark { width:48px; height:48px; border-radius:16px; display:grid; place-items:center; background: conic-gradient(from 210deg, var(--moss-bright), var(--fern), #1d6940, var(--moss-bright)); }
+    .pill { border:1px solid rgba(185,222,117,.25); background: rgba(185,222,117,.1); padding:8px 10px; border-radius: 999px; font-size:12px; color: var(--moss-bright); }
+    .list { padding: 14px; overflow:auto; min-height:0; }
+    
+    /* Картички в менюто */
+    .card { padding:16px; margin-bottom:10px; border-radius:18px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.04); cursor:pointer; transition: all 0.25s ease; }
+    .card:hover { border-color: rgba(185,222,117, 0.5); background:rgba(255,255,255,.08); }
+    .card.active { border-color: var(--moss-bright); background: rgba(185,222,117, 0.08); box-shadow: 0 0 15px rgba(185,222,117, 0.1); }
+    .card h3 { margin:0; font-size:15px; letter-spacing: -0.01em; line-height: 1.4; }
+    
     /* Новия блок с данни вътре в картичката */
     .card-stats {
       margin-top: 12px;
