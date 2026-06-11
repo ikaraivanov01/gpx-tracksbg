@@ -124,6 +124,7 @@
     map.addControl(new maplibregl.NavigationControl(), 'top-right');
     map.addControl(new maplibregl.ScaleControl({ unit: 'metric' }), 'bottom-left');
 
+    // КОРЕКЦИЯ: Директни GitHub Raw линкове към твоите GPX файлове
     let trails = [
       {
         id: 1,
@@ -171,10 +172,7 @@
     }
 
     function drawRoute(trailId, gpxUrl) {
-      // Използваме стабилно прокси, за да заобиколим CORS ограниченията и да няма празни грешки
-      const proxyUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(gpxUrl);
-
-      fetch(proxyUrl)
+      fetch(gpxUrl)
         .then(response => {
           if (!response.ok) throw new Error("Грешка при връзката");
           return response.text();
@@ -201,18 +199,21 @@
             }
           }
 
-          if (coordinates.length === 0) return;
+          if (coordinates.length === 0) {
+            alert("Файлът не съдържа валидни GPS точки.");
+            return;
+          }
 
           const idNum = Number(trailId);
 
-          // КОРЕКЦИЯ 1: Смяна на разстоянието на Провадия (ID 3) на точно 18 км
+          // СМЯНА НА КИЛОМЕТРИТЕ ЗА ПРОВАДИЯ ТЪРДO НА 18 км
           if (idNum === 3) {
             totalDistance = 18.00;
           }
 
           let totalHours = totalDistance / 4.0;
 
-          // КОРЕКЦИЯ 2: Двойно време за планинските маршрути до Мусала (ID 4 и ID 5)
+          // ДВОЙНО ВРЕМЕ ЗА МАРШРУТИТЕ НА МУСАЛА
           if (idNum === 4 || idNum === 5) {
             totalHours = totalHours * 2;
           }
@@ -292,8 +293,8 @@
           });
         })
         .catch(error => {
-          console.error("Грешка при зареждане:", error);
-          // БЕЗ ALERT: Изскачащите прозорци са премахнати, за да не пречат на потребителя
+          console.error("Грешка:", error);
+          alert("Неуспешно зареждане на трасето.");
         });
     }
 
