@@ -10,6 +10,66 @@
   </metadata>
   <trk>
     <name>2026-06-07_Дъбравино_Провадия_Фикс</name>
+    
+    <trkseg>
+      <trkpt lat="43.0929466" lon="27.5138807"><ele>62.9</ele><time>2026-06-07T06:41:01.000Z</time></trkpt>
+      <trkpt lat="43.0866584" lon="27.5219191"><ele>55.8</ele><time>2026-06-07T06:47:46.000Z</time></trkpt>
+      <trkpt lat="43.0832557" lon="27.5278951"><ele>71.4</ele><time>2026-06-07T06:50:47.000Z</time></trkpt>
+      <trkpt lat="43.0825431" lon="27.5280144"><ele>72.1</ele><time>2026-06-07T06:51:13.000Z</time></trkpt>
+      <trkpt lat="43.0801498" lon="27.5265608"><ele>102.3</ele><time>2026-06-07T06:52:46.000Z</time></trkpt>
+      <trkpt lat="43.0779761" lon="27.527409"><ele>104.1</ele><time>2026-06-07T06:54:03.000Z</time></trkpt>
+      <trkpt lat="43.073648" lon="27.5274113"><ele>121.2</ele><time>2026-06-07T06:56:57.000Z</time></trkpt>
+      <trkpt lat="43.0726775" lon="27.5245283"><ele>128.1</ele><time>2026-06-07T06:58:20.000Z</time></trkpt>
+      <trkpt lat="43.0693936" lon="27.5255425"><ele>151</ele><time>2026-06-07T07:00:33.000Z</time></trkpt>
+      <trkpt lat="43.0672772" lon="27.5379093"><ele>144.4</ele><time>2026-06-07T07:06:50.000Z</time></trkpt>
+      <trkpt lat="43.0640317" lon="27.5541752"><ele>113.9</ele><time>2026-06-07T07:19:55.000Z</time></trkpt>
+      <trkpt lat="43.0635154" lon="27.5551206"><ele>114.7</ele><time>2026-06-07T07:21:03.000Z</time></trkpt>
+      <trkpt lat="43.0635439" lon="27.5566391"><ele>120.3</ele><time>2026-06-07T07:22:53.000Z</time></trkpt>
+      <trkpt lat="43.0622341" lon="27.5558815"><ele>106.3</ele><time>2026-06-07T07:24:00.000Z</time></trkpt>
+      <trkpt lat="43.060374" lon="27.5713783"><ele>93.2</ele><time>2026-06-07T07:33:35.000Z</time></trkpt>
+      <trkpt lat="43.0580461" lon="27.5732844"><ele>106.8</ele><time>2026-06-07T07:35:40.000Z</time></trkpt>
+      <trkpt lat="43.056854" lon="27.5753694"><ele>103.8</ele><time>2026-06-07T07:39:16.000Z</time></trkpt>
+      <trkpt lat="43.0556308" lon="27.5807952"><ele>78.6</ele><time>2026-06-07T07:42:33.000Z</time></trkpt>
+      <trkpt lat="43.0612543" lon="27.5799783"><ele>73.5</ele><time>2026-06-07T07:47:25.000Z</time></trkpt>
+      <trkpt lat="43.0613803" lon="27.5899368"><ele>101.8</ele><time>2026-06-07T07:54:59.000Z</time></trkpt>
+      <trkpt lat="43.0577621" lon="27.5909069"><ele>96</ele><time>2026-06-07T07:58:03.000Z</time></trkpt>
+      <trkpt lat="43.0567191" lon="27.5926197"><ele>93.7</ele><time>2026-06-07T07:58:58.000Z</time></trkpt>
+      <trkpt lat="43.056329" lon="27.5964656"><ele>91.5</ele><time>2026-06-07T08:01:30.000Z</time></trkpt>
+      <trkpt lat="43.0583791" lon="27.5971304"><ele>99.7</ele><time>2026-06-07T08:04:03.000Z</time></trkpt>
+      <trkpt lat="43.0588315" lon="27.5989827"><ele>101.3</ele><time>2026-06-07T08:04:55.000Z</time></trkpt>
+      <trkpt lat="43.0598341" lon="27.5991087"><ele>107.1</ele><time>2026-06-07T08:05:37.000Z</time></trkpt>
+      <trkpt lat="43.0600707" lon="27.6031005"><ele>105.4</ele><time>2026-06-07T08:08:13.000Z</time></trkpt>
+    </trkseg>
+    
+    <trkseg>
+      <trkpt lat="43.0930649" lon="27.5137863"/>
+      <trkpt lat="43.0973861" lon="27.5068962"/>
+      <trkpt lat="43.0977311" lon="27.5049968"/>
+      <trkpt lat="43.0972632" lon="27.4993161"/>
+      <trkpt lat="43.0992609" lon="27.4924365"/>
+      <trkpt lat="43.1006408" lon="27.4856254"/>
+      <trkpt lat="43.1035428" lon="27.4804224"/>
+      <trkpt lat="43.1043679" lon="27.4756625"/>
+      <trkpt lat="43.1057309" lon="27.4758959"/>
+      <trkpt lat="43.1072175" lon="27.4751698"/>
+      <trkpt lat="43.111624" lon="27.4747993"/>
+      <trkpt lat="43.1208918" lon="27.4708097"/>
+      <trkpt lat="43.1245845" lon="27.4704391"/>
+      <trkpt lat="43.1247566" lon="27.4715366"><ele>62.6</ele></trkpt>
+    </trkseg>
+  </trk>
+</gpx><?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="OsmAndRouterV2" schemaLocation="http://www.topografix.com/GPX/1/1 https://www.topografix.com/GPX/1/1/gpx.xsd" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/PowerExtension/v1 http://www.garmin.com/xmlschemas/PowerExtensionv1.xsd http://www.topografix.com/GPX/gpx_style/0/2 http://www.topografix.com/GPX/gpx_style/0/2/gpx_style.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:gpxpx="http://www.garmin.com/xmlschemas/PowerExtension/v1" xmlns:gpx_style="http://www.topografix.com/GPX/gpx_style/0/2">
+  <metadata>
+    <name>2026-06-07_Дъбравино-Провадия, солници</name>
+    <author>
+      <name>gpx.studio</name>
+      <link href="https://gpx.studio"/>
+    </author>
+    <time>2026-06-07T08:59:03.000Z</time>
+  </metadata>
+  <trk>
+    <name>2026-06-07_Дъбравино_Провадия_Фикс</name>
     <trkseg>
       <trkpt lat="43.0929466" lon="27.5138807"><ele>62.9</ele><time>2026-06-07T06:41:01.000Z</time></trkpt>
       <trkpt lat="43.0866584" lon="27.5219191"><ele>55.8</ele><time>2026-06-07T06:47:46.000Z</time></trkpt>
