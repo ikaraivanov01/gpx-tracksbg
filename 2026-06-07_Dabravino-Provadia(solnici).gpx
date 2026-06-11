@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gpx version="1.1" creator="The Ride Atlas - therideatlas.com" schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <metadata>
-    <name>2026-06-07_Дъбравино-Провадия, солници - Чист</name>
+    <name>2026-06-07_Дъбравино-Провадия, солници - 18км</name>
     <author>
       <name>gpx.studio</name>
       <link href="https://gpx.studio"/>
@@ -9,7 +9,7 @@
     <time>2026-06-11T18:21:34.317Z</time>
   </metadata>
   <trk>
-    <name>2026-06-07_Дъбравино-Провадия, солници - Финал</name>
+    <name>Дъбравино - Провадия (18 км) - Финал</name>
     <trkseg>
       <trkpt lat="43.0929466" lon="27.5138807"><ele>62.9</ele></trkpt>
       <trkpt lat="43.0866584" lon="27.5219191"><ele>55.8</ele></trkpt>
