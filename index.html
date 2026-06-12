@@ -238,9 +238,14 @@
 
           let totalHours = totalDistance / 4.0;
 
-          // ДВОЙНО ВРЕМЕ ЗА МАРШРУТИТЕ НА МУСАЛА
-          if (idNum === 4 || idNum === 5) {
+          // ДВОЙНО ВРЕМЕ ЗА МАРШРУТИТЕ НА МУСАЛА, БОТЕВ, РАЙСКОТО И ТРИТЕ КАИ
+          if (idNum === 4 || idNum === 5 || idNum === 8 || idNum === 9 || idNum === 10) {
             totalHours = totalHours * 2;
+          }
+
+          // ТРОЙНО ВРЕМЕ ЗА ДВАТА МАРШРУТА НА ВИХРЕН
+          if (idNum === 6 || idNum === 7) {
+            totalHours = totalHours * 3;
           }
 
           const hours = Math.floor(totalHours);
